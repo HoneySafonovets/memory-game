@@ -70,6 +70,7 @@
 }
 
 .card {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,6 +82,15 @@
   width: 150px;
   height: 150px;
   transition: all 0.3s ease-in;
+}
+
+
+.card__blank {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 @media screen and (hover: hover) {

@@ -1,0 +1,41 @@
+[
+  {
+    "name": "giraffe",
+    "img": "../assets/giraffe.svg"
+  },
+
+  {
+    "name": "elephant",
+    "img": "../assets/elephant.svg"
+  },
+
+  {
+    "name": "frog",
+    "img": "../assets/frog.svg"
+  },
+
+  {
+    "name": "hedgehog",
+    "img": "../assets/hedgehog.svg"
+  },
+
+  {
+    "name": "dog",
+    "img": "../assets/dog.svg"
+  },
+
+  {
+    "name": "bear",
+    "img": "../assets/bear.svg"
+  },
+
+  {
+    "name": "deer",
+    "img": "../assets/deer.svg"
+  },
+
+  {
+    "name": "butterfly",
+    "img": "../assets/butterfly.svg"
+  }
+]
