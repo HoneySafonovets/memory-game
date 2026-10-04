@@ -1,8 +1,9 @@
 import getData from './getData.js';
 
-export default function makeRenderCardImMain() {
+export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
-  console.log(getData());
+  const data = await getData();
+  // console.log(data)
 
   function renderCard(index) {
     const card = document.createElement('div');
@@ -11,17 +12,13 @@ export default function makeRenderCardImMain() {
     card.classList.add('card');
     const img = document.createElement('img');
 
-
-    cardBlank.classList.add('card__blank')
-    // Обратная сторона (изображение)
-    // const cardFront = document.createElement('div');
-    // cardFront.classList.add('card__front');
-    // const img = document.createElement('img');
-    // img.src = ''; // путь к картинке
-    // img.alt = 'card';
-    // cardFront.append(img);
+    // Add class for Cards item
+    cardBlank.classList.add('card__blank');
+    img.classList.add('card__img');
+    img.src = `${data[0].img}`;
 
 
+    // Add 
     main.append(card);
 
     // Set dataset
@@ -33,4 +30,14 @@ export default function makeRenderCardImMain() {
   for (let i = 0; i < 16; i++) {
     renderCard(i);
   }
+
+  main.addEventListener('click', (e) => {
+    const target = e.target;
+
+    if (!target.closest('.card')) return;
+
+    if (target.closest('.card')) {
+      target.closest('.card').classList.add('card-active');
+    }
+  })
 }
