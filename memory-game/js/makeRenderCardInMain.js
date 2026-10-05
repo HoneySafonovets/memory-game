@@ -1,15 +1,19 @@
 import getData from './getData.js';
 import resetCards from './resetCards.js';
+import movesCount from './movesCount.js';
 
 export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
   const data = await getData();
+  let count = 0;
+
   // console.log(data)
   let firstCard = null;
   let secondCard = null;
 
   let isLocked = false;
 
+  // Function for render CARDS
   function renderCard(index) {
     const card = document.createElement('div');
     const cardBlank = document.createElement('div');
@@ -30,6 +34,7 @@ export default async function makeRenderCardImMain() {
     card.append(cardBlank);
   }
 
+  // Add cards in MAIN
   for (let i = 0; i < 16; i++) {
     renderCard(i);
   }
@@ -40,7 +45,6 @@ export default async function makeRenderCardImMain() {
     e.closest('.card').dataset.name = `${data[index].name}`;
   });
 
-  
   // Check cards
   function cardShowImage(e) {
     const target = e.target;
@@ -79,15 +83,18 @@ export default async function makeRenderCardImMain() {
 
     // Check cards on ===
     if (firstCard.dataset.name === secondCard.dataset.name) {
-      document.querySelector('.main').classList.add('main-inactive');
+      movesCount(count);
+      count = movesCount(count);
       setTimeout(() => {
         firstCard = null;
         secondCard = null;
         isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
         return;
-      }, 800)
+      }, 800);
     } else {
+      movesCount(count);
+      count = movesCount(count);
       document.querySelector('.main').classList.add('main-inactive');
       setTimeout(() => {
         firstCard.classList.remove('card-active');
