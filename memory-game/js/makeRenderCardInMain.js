@@ -1,11 +1,13 @@
 import getData from './getData.js';
 import resetCards from './resetCards.js';
 import movesCount from './movesCount.js';
+import pairsCount from './pairsCount.js';
 
 export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
   const data = await getData();
   let count = 0;
+  let pairs = 0;
 
   // console.log(data)
   let firstCard = null;
@@ -84,7 +86,10 @@ export default async function makeRenderCardImMain() {
     // Check cards on ===
     if (firstCard.dataset.name === secondCard.dataset.name) {
       movesCount(count);
+      pairsCount(pairs);
+      // 
       count = movesCount(count);
+      pairs = pairsCount(pairs);
       setTimeout(() => {
         firstCard = null;
         secondCard = null;
