@@ -15,12 +15,10 @@ export default async function makeRenderCardImMain() {
     // Add class for Cards item
     cardBlank.classList.add('card__blank');
     img.classList.add('card__img');
-    img.src = `${data[0].img}`;
 
-
-    // Add 
+    // Add CARD to main
     main.append(card);
-
+    
     // Set dataset
     card.dataset.name = `${index}`;
     card.append(img);
@@ -30,6 +28,12 @@ export default async function makeRenderCardImMain() {
   for (let i = 0; i < 16; i++) {
     renderCard(i);
   }
+
+  // Add image in each card
+  document.querySelectorAll('.card__img').forEach((e, index) => {
+    e.src = `${data[index].img}`;
+    console.log(e)
+  });
 
   main.addEventListener('click', (e) => {
     const target = e.target;
