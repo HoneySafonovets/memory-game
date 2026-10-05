@@ -5,6 +5,8 @@ export default async function makeRenderCardImMain() {
   const data = await getData();
   // console.log(data)
 
+  let isLocked = false;
+
   function renderCard(index) {
     const card = document.createElement('div');
     const cardBlank = document.createElement('div');
@@ -20,7 +22,7 @@ export default async function makeRenderCardImMain() {
     main.append(card);
     
     // Set dataset
-    card.dataset.name = `${index}`;
+    // card.dataset.name = `${index}`;
     card.append(img);
     card.append(cardBlank);
   }
@@ -32,7 +34,8 @@ export default async function makeRenderCardImMain() {
   // Add image in each card
   document.querySelectorAll('.card__img').forEach((e, index) => {
     e.src = `${data[index].img}`;
-    console.log(e)
+    // console.log
+    e.closest('.card').dataset.name = `${data[index].name}`;
   });
 
   main.addEventListener('click', (e) => {
