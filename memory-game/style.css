@@ -70,6 +70,10 @@
   max-width: var(--size-container);
 }
 
+.main-inactive {
+  pointer-events: none;
+}
+
 .card {
   position: relative;
   display: flex;

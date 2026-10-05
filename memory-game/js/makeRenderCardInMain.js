@@ -1,9 +1,12 @@
 import getData from './getData.js';
+import resetCards from './resetCards.js';
 
 export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
   const data = await getData();
   // console.log(data)
+  let firstCard = null;
+  let secondCard = null;
 
   let isLocked = false;
 
@@ -34,17 +37,70 @@ export default async function makeRenderCardImMain() {
   // Add image in each card
   document.querySelectorAll('.card__img').forEach((e, index) => {
     e.src = `${data[index].img}`;
-    // console.log
     e.closest('.card').dataset.name = `${data[index].name}`;
   });
 
-  main.addEventListener('click', (e) => {
+  
+  // Check cards
+  function cardShowImage(e) {
     const target = e.target;
 
+    // If dont card
     if (!target.closest('.card')) return;
 
-    if (target.closest('.card')) {
-      target.closest('.card').classList.add('card-active');
+    // Locked
+    if (isLocked) {
+      return;
     }
-  })
+
+    // Active card unclicked
+    if (target.closest('.card') === firstCard) {
+      return;
+    }
+
+    // Actived card unclicked
+    if (target.closest('.card').classList.contains('card-active')) {
+      return;
+    }
+
+    // First Card
+    if (!firstCard) {
+      firstCard = target.closest('.card');
+      firstCard.classList.add('card-active');
+      return;
+    }
+
+    // Second card 
+    secondCard = target.closest('.card');
+    secondCard.classList.add('card-active');
+
+    // Blocked cards
+    isLocked = true;
+
+    // Check cards on ===
+    if (firstCard.dataset.name === secondCard.dataset.name) {
+      document.querySelector('.main').classList.add('main-inactive');
+      setTimeout(() => {
+        firstCard = null;
+        secondCard = null;
+        isLocked = false;
+        document.querySelector('.main').classList.remove('main-inactive');
+        return;
+      }, 800)
+    } else {
+      document.querySelector('.main').classList.add('main-inactive');
+      setTimeout(() => {
+        firstCard.classList.remove('card-active');
+        secondCard.classList.remove('card-active');
+        firstCard = null;
+        secondCard = null;
+        isLocked = false;
+        document.querySelector('.main').classList.remove('main-inactive');
+        return;
+      }, 800)
+    }
+  }
+  
+  // Main Event Listener for CLICK
+  main.addEventListener('click', cardShowImage);
 }
