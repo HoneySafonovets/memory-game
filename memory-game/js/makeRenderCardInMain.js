@@ -108,7 +108,7 @@ export default async function makeRenderCardImMain() {
         secondCard = null;
         isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
-        if (Number(pairs) === 2) {
+        if (Number(pairs) === 8) {
           modalWin();
         };
         return;
