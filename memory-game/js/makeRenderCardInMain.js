@@ -2,10 +2,12 @@ import getData from './getData.js';
 import resetCards from './resetCards.js';
 import movesCount from './movesCount.js';
 import pairsCount from './pairsCount.js';
+import modalWin from './modalWin.js';
 
 export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
   const data = await getData();
+
   let count = 0;
   let pairs = 0;
 
@@ -14,6 +16,15 @@ export default async function makeRenderCardImMain() {
   let secondCard = null;
 
   let isLocked = false;
+
+  // Check
+  // if (count > 0) {
+  //   count = 0;
+  //   pairs = 0;
+  //   firstCard = null;
+  //   secondCard = null;
+  //   isLocked = false;
+  // }
 
   // Function for render CARDS
   function renderCard(index) {
@@ -90,13 +101,18 @@ export default async function makeRenderCardImMain() {
       // 
       count = movesCount(count);
       pairs = pairsCount(pairs);
+
+      
       setTimeout(() => {
         firstCard = null;
         secondCard = null;
         isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
+        if (Number(pairs) === 2) {
+          modalWin();
+        };
         return;
-      }, 800);
+      }, 900);
     } else {
       movesCount(count);
       count = movesCount(count);
@@ -109,7 +125,7 @@ export default async function makeRenderCardImMain() {
         isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
         return;
-      }, 800)
+      }, 900)
     }
   }
   
