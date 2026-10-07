@@ -1,6 +1,7 @@
 import resetCards from './resetCards.js';
 import makeRenderCardImMain from './makeRenderCardInMain.js';
 import getData from './getData.js';
+import leaderShow from './leaderShow.js';
 
 export default function makeBtnInHeader() {
   const leftBtn = document.createElement('div');
@@ -22,5 +23,10 @@ export default function makeBtnInHeader() {
   leftBtn.addEventListener('click', () => {
     resetCards();
     makeRenderCardImMain();
+  });
+
+  // Leader board
+  rightBtn.addEventListener('click', () => {
+    leaderShow();
   });
 };
