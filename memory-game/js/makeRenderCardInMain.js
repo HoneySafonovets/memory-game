@@ -3,19 +3,22 @@ import resetCards from './resetCards.js';
 import movesCount from './movesCount.js';
 import pairsCount from './pairsCount.js';
 import modalWin from './modalWin.js';
+import { resetState, state } from './stateParametrs.js';
 
 export default async function makeRenderCardImMain() {
   const main = document.querySelector('.main');
   const data = await getData();
 
-  let count = 0;
-  let pairs = 0;
+  
+
+  let count = state.count;
+  let pairs = state.pairs;
 
   // console.log(data)
-  let firstCard = null;
-  let secondCard = null;
+  let firstCard = state.firstCard;
+  let secondCard = state.secondCard;
 
-  let isLocked = false;
+  let isLocked = state.isLocked;
 
   // Check
   // if (count > 0) {
@@ -66,12 +69,12 @@ export default async function makeRenderCardImMain() {
     if (!target.closest('.card')) return;
 
     // Locked
-    if (isLocked) {
+    if (state.isLocked) {
       return;
     }
 
     // Active card unclicked
-    if (target.closest('.card') === firstCard) {
+    if (target.closest('.card') === state.firstCard) {
       return;
     }
 
@@ -81,48 +84,48 @@ export default async function makeRenderCardImMain() {
     }
 
     // First Card
-    if (!firstCard) {
-      firstCard = target.closest('.card');
-      firstCard.classList.add('card-active');
+    if (!state.firstCard) {
+      state.firstCard = target.closest('.card');
+      state.firstCard.classList.add('card-active');
       return;
     }
 
     // Second card 
-    secondCard = target.closest('.card');
-    secondCard.classList.add('card-active');
+    state.secondCard = target.closest('.card');
+    state.secondCard.classList.add('card-active');
 
     // Blocked cards
-    isLocked = true;
+    state.isLocked = true;
 
     // Check cards on ===
-    if (firstCard.dataset.name === secondCard.dataset.name) {
-      movesCount(count);
-      pairsCount(pairs);
+    if (state.firstCard.dataset.name === state.secondCard.dataset.name) {
+      movesCount(state.count);
+      pairsCount(state.pairs);
       // 
-      count = movesCount(count);
-      pairs = pairsCount(pairs);
+      state.count = movesCount(state.count);
+      state.pairs = pairsCount(state.pairs);
 
       
       setTimeout(() => {
-        firstCard = null;
-        secondCard = null;
-        isLocked = false;
+        state.firstCard = null;
+        state.secondCard = null;
+        state.isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
-        if (Number(pairs) === 8) {
+        if (Number(state.pairs) === 8) {
           modalWin();
         };
         return;
       }, 900);
     } else {
-      movesCount(count);
-      count = movesCount(count);
+      movesCount(state.count);
+      state.count = movesCount(state.count);
       document.querySelector('.main').classList.add('main-inactive');
       setTimeout(() => {
-        firstCard.classList.remove('card-active');
-        secondCard.classList.remove('card-active');
-        firstCard = null;
-        secondCard = null;
-        isLocked = false;
+        state.firstCard.classList.remove('card-active');
+        state.secondCard.classList.remove('card-active');
+        state.firstCard = null;
+        state.secondCard = null;
+        state.isLocked = false;
         document.querySelector('.main').classList.remove('main-inactive');
         return;
       }, 900)
